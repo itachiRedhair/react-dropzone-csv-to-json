@@ -1,3 +1,4 @@
+import _objectWithoutProperties from "/Users/akshaym/Desktop/Projects/react-dropzone-csv-to-json/react-dropzone-csv-to-json/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties";
 import _classCallCheck from "/Users/akshaym/Desktop/Projects/react-dropzone-csv-to-json/react-dropzone-csv-to-json/node_modules/@babel/runtime/helpers/esm/classCallCheck";
 import _createClass from "/Users/akshaym/Desktop/Projects/react-dropzone-csv-to-json/react-dropzone-csv-to-json/node_modules/@babel/runtime/helpers/esm/createClass";
 import _possibleConstructorReturn from "/Users/akshaym/Desktop/Projects/react-dropzone-csv-to-json/react-dropzone-csv-to-json/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn";
@@ -77,10 +78,14 @@ function (_Component) {
   _createClass(ModifiedDropZone, [{
     key: "render",
     value: function render() {
-      var children = this.props.children;
+      var _this$props = this.props,
+          children = _this$props.children,
+          getJson = _this$props.getJson,
+          rest = _objectWithoutProperties(_this$props, ["children", "getJson"]);
+
       return React.createElement(Dropzone, Object.assign({
         onDrop: this.onDrop
-      }, this.props), children);
+      }, rest), children);
     }
   }]);
 
