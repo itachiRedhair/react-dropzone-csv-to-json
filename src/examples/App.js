@@ -1,10 +1,14 @@
-## What it does?
+import React, { Component } from "react";
+import { DropZone } from "../lib";
 
-Actually it does nothing much. This module is just an extension of fabulous `react-dropzone`. On accepting CSV file it will give you back JSON. That's it.
+class App extends Component {
+  state = {
+    jsonResult: null
+  };
 
-## Usage
-
-```
+  render() {
+    return (
+      <div style={{ width: 640, margin: "15px auto" }}>
         <div>
           <DropZone
             getJson={jsonResult => {
@@ -17,5 +21,9 @@ Actually it does nothing much. This module is just an extension of fabulous `rea
             <div>{JSON.stringify(this.state.jsonResult)}</div>
           ) : null}
         </div>
-        
-```
+      </div>
+    );
+  }
+}
+
+export default App;

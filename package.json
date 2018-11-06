@@ -11,7 +11,10 @@
     "type": "git",
     "url": "https://github.com/itachiRedhair/react-dropzone-csv-to-json"
   },
-  "dependencies": {},
+  "dependencies": {
+    "csvtojson": "^2.0.8",
+    "react-dropzone": "^7.0.1"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",

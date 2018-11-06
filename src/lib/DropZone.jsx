@@ -1,16 +1,62 @@
-import React from "react";
-import "./TextInput.css";
+import React, { Component } from "react";
+import Dropzone from "react-dropzone";
+import csv from "csvtojson";
 
-const TextInput = ({ type = "text", label, value, onChange }) => (
-  <div className="simple-form-group">
-    {label && <label className="simple-text-label">{label}</label>}
-    <input
-      type={type}
-      className="simple-text-input"
-      value={value}
-      onChange={e => onChange && onChange(e.target.value)}
-    />
-  </div>
-);
+export default class ModifiedDropZone extends Component {
+  state = {
+    files: []
+  };
 
-export default TextInput;
+  onDrop = (acceptedFiles, rejectedFiles) => {
+    this.setState({
+      files: acceptedFiles
+    });
+
+    acceptedFiles.forEach(file => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const fileAsBinaryString = reader.result;
+
+        csv({
+          noheader: true,
+          output: "json"
+        })
+          .fromString(fileAsBinaryString)
+          .then(csvRows => {
+            const toJson = [];
+            csvRows.forEach((aCsvRow, i) => {
+              if (i !== 0) {
+                const builtObject = {};
+
+                Object.keys(aCsvRow).forEach(aKey => {
+                  const valueToAddInBuiltObject = aCsvRow[aKey];
+                  const keyToAddInBuiltObject = csvRows[0][aKey];
+                  builtObject[keyToAddInBuiltObject] = valueToAddInBuiltObject;
+                });
+
+                toJson.push(builtObject);
+              }
+            });
+
+            const { getJson } = this.props;
+            getJson(toJson);
+          });
+      };
+
+      reader.onabort = () => console.log("file reading was aborted");
+      reader.onerror = () => console.log("file reading has failed");
+
+      reader.readAsBinaryString(file);
+    });
+  };
+
+  render() {
+    const { children } = this.props;
+    return (
+      <Dropzone onDrop={this.onDrop} {...this.props}>
+        {children}
+      </Dropzone>
+    );
+  }
+}
