@@ -52,9 +52,9 @@ export default class ModifiedDropZone extends Component {
   };
 
   render() {
-    const { children } = this.props;
+    const { children, getJson, ...rest } = this.props;
     return (
-      <Dropzone onDrop={this.onDrop} {...this.props}>
+      <Dropzone onDrop={this.onDrop} {...rest}>
         {children}
       </Dropzone>
     );
