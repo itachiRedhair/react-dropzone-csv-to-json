@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { DropZone } from "../lib";
+import DropZone from "../lib";
 
 class App extends Component {
   state = {
