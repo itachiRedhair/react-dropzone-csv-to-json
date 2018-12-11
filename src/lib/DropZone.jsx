@@ -47,7 +47,7 @@ export default class ModifiedDropZone extends Component {
       reader.onabort = () => console.log("file reading was aborted");
       reader.onerror = () => console.log("file reading has failed");
 
-      reader.readAsBinaryString(file);
+      reader.readAsText(file, 'ISO-8859-1');
     });
   };
 
